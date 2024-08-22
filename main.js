@@ -114,6 +114,8 @@ function onSubmit()
 
 function startGame()
 {
+	e_answers.innerHTML = "";
+
 	// Populate hint list
 	var names = [""];
 	for (var i in countries)
