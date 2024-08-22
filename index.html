@@ -32,6 +32,11 @@ h1 {
 	display: inline-block;
 }
 
+#e_promptflag {
+	height: 24px;
+	vertical-align: middle;
+}
+
 #e_mapscroll {
 	height: 500px;  /* TODO: find some good way to fit this */
 	overflow: scroll;
@@ -51,7 +56,7 @@ h1 {
 		<div id="e_mapcontainer" class="fancy-box">
 			<div id="e_toolbar">
 				<span id="e_timer" style="width:100px"></span><span id="e_progress"></span>
-				<span id="e_promptflag"></span>
+				<img id="e_promptflag">
 				<form id="e_countryform" name="country" action="javascript:onSubmit()" autocomplete="off">
 					<input id="e_countrytext" type="text" name="name">
 					<select id="e_countrylist"></select>

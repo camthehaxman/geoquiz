@@ -67,7 +67,7 @@ function nextCountry()
 		styleSheet.rules[countryIndex].style.opacity = "1";
 		focusCountry();
 		e_progress.innerText = (countryIndex + 1) + " of " + countries.length + ":";
-		e_promptflag.innerText = countries[countryIndex].flag;
+		e_promptflag.src = "https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/" + countries[countryIndex].id + ".svg";
 	}
 	else {
 		stopTimer();
@@ -96,7 +96,7 @@ function onSubmit()
 	var correct = checkName(name, countries[countryIndex].names);
 	if (correct)
 		numCorrect++;
-	answer.innerText = (correct ? "✔️ " : "❌ ") + countries[countryIndex].names[0] + " " + countries[countryIndex].flag;
+	answer.innerText = (correct ? "✔️ " : "❌ ") + countries[countryIndex].names[0];
 	styleSheet.rules[countryIndex].style.fill = correct ? "green" : "red";
 	nextCountry();
 }
