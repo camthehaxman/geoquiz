@@ -81,7 +81,7 @@ h3 {
 		<div id="e_mapcontainer" class="panel-box">
 			<div id="e_toolbar">
 				<span id="e_timer" style="width:100px"></span><span id="e_progress"></span>
-				<img id="e_promptflag">
+				<img id="e_promptflag" src="//:0" alt="flag">
 				<form id="e_countryform" name="country" action="javascript:onSubmit()" autocomplete="off">
 					<input id="e_countrytext" type="text" name="name">
 					<select id="e_countrylist"></select>
@@ -100,7 +100,7 @@ h3 {
 				<button onclick="e_maptips.style.display='none'">Got it</button>
 			</div>
 			<div id="e_mapscroll">
-				<object id="e_worldmap" data="World Map.svg"></object>
+				<object id="e_worldmap" data="World_Map.svg"></object>
 			</div>
 			<button onclick="focusCountry()">Where?</button>
 		</div>
@@ -112,7 +112,7 @@ h3 {
 			<ul id="e_answers" class="inset-box"></ul>
 		</div>
 		<div class="panel-box">
-			<h3>Game Options</h2>
+			<h3>Game Options</h3>
 			<input type="checkbox" id="e_hintflags" name="flags"><label for="flags">Show Flags</label>
 			<br>
 			<input type="checkbox" id="e_hintlist" name="usedropdown"><label for="usedropdown">Choose Country From List</label>
