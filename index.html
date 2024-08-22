@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>World Countries Quiz</title>
 		<link rel="stylesheet" href="skin.css">
 		<style>
@@ -14,6 +15,11 @@ body {
 h1 {
 	margin: 0px;
 	padding: 5px;
+}
+
+h3 {
+	margin-block-start: 0.5em;
+	margin-block-end: 0.5em;
 }
 
 .popup {
@@ -33,7 +39,7 @@ h1 {
 }
 
 #e_promptflag {
-	height: 24px;
+	height: 1em;
 	vertical-align: middle;
 }
 
@@ -49,11 +55,30 @@ h1 {
 	width: 100%;
 	pointer-events: none;
 }
+
+#e_answers {
+	list-style-type: none;
+	max-height: 300px;
+	overflow-y: scroll;
+}
+
+#e_answers li:before {  /* incorrect */
+	content: "❌ ";
+}
+
+#e_answers li.correct:before {  /* correct */
+	content: "✔️ ";
+}
+
+#e_answers img {
+	height: 1em;
+	vertical-align: middle;
+}
 		</style>
 	</head>
 	<body>
 		<h1>World Countries Quiz</h1>
-		<div id="e_mapcontainer" class="fancy-box">
+		<div id="e_mapcontainer" class="panel-box">
 			<div id="e_toolbar">
 				<span id="e_timer" style="width:100px"></span><span id="e_progress"></span>
 				<img id="e_promptflag">
@@ -63,7 +88,7 @@ h1 {
 					<input type="submit" value="Submit">
 				</form>
 			</div>
-			<div id="e_maptips" class="popup fancy-box">
+			<div id="e_maptips" class="popup panel-box">
 				<b>Instructions:</b>
 				<br>
 				Type the name of the country shown on the map.
@@ -80,9 +105,13 @@ h1 {
 			<button onclick="focusCountry()">Where?</button>
 		</div>
 		<p id="answer"></p>
-		<p id="results"></p>
+		<p id="e_results"></p>
 		<button onclick="startGame()">Restart Game</button>
-		<div class="fancy-box">
+		<div class="panel-box">
+			<h3>Answers:</h3>
+			<ul id="e_answers" class="inset-box"></ul>
+		</div>
+		<div class="panel-box">
 			<h3>Game Options</h2>
 			<input type="checkbox" id="e_hintflags" name="flags"><label for="flags">Show Flags</label>
 			<br>

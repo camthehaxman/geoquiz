@@ -148,7 +148,7 @@ var countries =
 	{ id: "qa", names: [ "Qatar" ], zoom: 400 },
 	{ id: "ro", names: [ "Romania" ], zoom: 300 },
 	{ id: "rs", names: [ "Serbia" ], zoom: 300 },
-	{ id: "ru", names: [ "Russia", "Russian Federation" ] },
+	{ id: "ru", names: [ "Russia", "Russian Federation" ], zoom: 100 },
 	{ id: "rw", names: [ "Rwanda" ], zoom: 300 },
 	{ id: "sa", names: [ "Saudi Arabia" ] },
 	{ id: "sb", names: [ "Solomon Islands" ], zoom: 400 },

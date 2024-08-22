@@ -14,7 +14,7 @@ body
 	background: radial-gradient(circle at bottom, #E0E0E0, #9090C0);
 }
 
-.fancy-box
+.panel-box
 {
 	margin: 5px;
 	border-radius: 5px;
@@ -22,6 +22,16 @@ body
 	box-shadow: #303030 2px 2px 8px;
 	background-color: #707070;
 	color: white;
+}
+
+.inset-box
+{
+	margin: 5px;
+	border-radius: 5px;
+	padding: 5px;
+	background-color: #DDD;
+	color: black;
+	box-shadow: #303030 0px 0px 8px inset;
 }
 
 button,

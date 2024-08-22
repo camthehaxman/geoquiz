@@ -17,6 +17,11 @@ function shuffleArray(array)
     }
 }
 
+function flagURL(id)
+{
+	return "https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/" + id + ".svg";
+}
+
 function focusCountry()
 {
 	var zoom = countries[countryIndex].zoom || 200;
@@ -67,11 +72,11 @@ function nextCountry()
 		styleSheet.rules[countryIndex].style.opacity = "1";
 		focusCountry();
 		e_progress.innerText = (countryIndex + 1) + " of " + countries.length + ":";
-		e_promptflag.src = "https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/" + countries[countryIndex].id + ".svg";
+		e_promptflag.src = flagURL(countries[countryIndex].id);
 	}
 	else {
 		stopTimer();
-		results.innerText = "You got " + numCorrect + " out of " + countries.length + " correct (" + Math.round(numCorrect * 100 / countries.length) + "%). " +
+		e_results.innerText = "You got " + numCorrect + " out of " + countries.length + " correct (" + Math.round(numCorrect * 100 / countries.length) + "%). " +
 			"Completed in " + formatTime(endTime - startTime);
 	}
 }
@@ -96,6 +101,12 @@ function onSubmit()
 	var correct = checkName(name, countries[countryIndex].names);
 	if (correct)
 		numCorrect++;
+
+	var li = document.createElement("li");
+	li.className = correct ? "correct" : "";
+	li.innerHTML = countries[countryIndex].names[0] + " <img src='" + flagURL(countries[countryIndex].id) + "'>";
+	e_answers.appendChild(li);
+
 	answer.innerText = (correct ? "✔️ " : "❌ ") + countries[countryIndex].names[0];
 	styleSheet.rules[countryIndex].style.fill = correct ? "green" : "red";
 	nextCountry();
@@ -127,7 +138,7 @@ function startGame()
 	}
 
 	answer.innerText = "";
-	results.innerText = "";
+	e_results.innerText = "";
 
 	numCorrect = 0;
 	countryIndex = -1;
