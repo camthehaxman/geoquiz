@@ -1,0 +1,50 @@
+/* Basic Frutiger Aero inspired skin */
+
+* { font-family: sans-serif; }
+
+h1
+{
+	background: linear-gradient(to bottom, #636668 0%, #464646 50%, #343434 53%, #000000 100%);
+	color: white;
+}
+
+body
+{
+	height: 100%;
+	background: radial-gradient(circle at bottom, #E0E0E0, #9090C0);
+}
+
+.fancy-box
+{
+	margin: 5px;
+	border-radius: 5px;
+	border: 5px solid transparent;
+	box-shadow: #303030 2px 2px 8px;
+	background-color: #707070;
+	color: white;
+}
+
+button,
+input[type=button],
+input[type=submit]
+{
+	background: linear-gradient(to bottom, #636668 0%, #464646 50.52%, #343434 53.12%, #000000 100%);
+	color: white;
+	border-radius: 5px;
+	border: 0px solid transparent;
+	padding: 5px;
+}
+
+button:active,
+input[type=button]:active,
+input[type=submit]:active
+{
+	background: linear-gradient(to top, #636668 0%, #464646 50.52%, #343434 53.12%, #000000 100%);
+}
+
+button:hover,
+input[type=button]:hover,
+input[type=submit]:hover
+{
+	box-shadow: #C0C0FF 0px 0px 8px;
+}

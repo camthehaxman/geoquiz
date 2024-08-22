@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>World Countries Quiz</title>
+		<link rel="stylesheet" href="skin.css">
+		<style>
+/* Layout */
+
+body {
+	margin: 0px;
+}
+
+h1 {
+	margin: 0px;
+	padding: 5px;
+}
+
+.popup {
+	position: absolute;
+	margin: 8px;
+}
+
+#e_toolbar {
+	position: absolute;
+	padding: 4px;
+	background-color:rgba(0,0,0,0.5);
+	border-radius: 0px 0px 4px 0px;
+}
+
+#e_toolbar > * {
+	display: inline-block;
+}
+
+#e_mapscroll {
+	height: 500px;  /* TODO: find some good way to fit this */
+	overflow: scroll;
+	user-select: none;
+	cursor: grab;
+	background-color: #E0E0E0;
+}
+
+#e_worldmap {
+	width: 100%;
+	pointer-events: none;
+}
+		</style>
+	</head>
+	<body>
+		<h1>World Countries Quiz</h1>
+		<div id="e_mapcontainer" class="fancy-box">
+			<div id="e_toolbar">
+				<span id="e_timer" style="width:100px"></span><span id="e_progress"></span>
+				<span id="e_promptflag"></span>
+				<form id="e_countryform" name="country" action="javascript:onSubmit()" autocomplete="off">
+					<input id="e_countrytext" type="text" name="name">
+					<select id="e_countrylist"></select>
+					<input type="submit" value="Submit">
+				</form>
+			</div>
+			<div id="e_maptips" class="popup fancy-box">
+				<b>Instructions:</b>
+				<br>
+				Type the name of the country shown on the map.
+				<br>
+				You can pan the map around using the mouse and zoom using the scroll wheel.
+				<br>
+				Click the "Where?" button below to highlight the country again.
+				<br>
+				<button onclick="e_maptips.style.display='none'">Got it</button>
+			</div>
+			<div id="e_mapscroll">
+				<object id="e_worldmap" data="World Map.svg"></object>
+			</div>
+			<button onclick="focusCountry()">Where?</button>
+		</div>
+		<p id="answer"></p>
+		<p id="results"></p>
+		<button onclick="startGame()">Restart Game</button>
+		<div class="fancy-box">
+			<h3>Game Options</h2>
+			<input type="checkbox" id="e_hintflags" name="flags"><label for="flags">Show Flags</label>
+			<br>
+			<input type="checkbox" id="e_hintlist" name="usedropdown"><label for="usedropdown">Choose Country From List</label>
+		</div>
+	</body>
+	<script type="text/javascript" src="countries.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+</html>
