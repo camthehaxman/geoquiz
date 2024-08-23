@@ -20,7 +20,7 @@ body
 	border-radius: 5px;
 	border: 5px solid transparent;
 	box-shadow: #303030 2px 2px 8px;
-	background-color: #707070;
+	background-color: #505050;
 	color: white;
 }
 
@@ -34,27 +34,46 @@ body
 	box-shadow: #303030 0px 0px 8px inset;
 }
 
+button, input[type=button], input[type=submit], input[type=text], select
+{
+	border-radius: 5px;
+	border: 1px solid #404040;
+	padding: 5px;
+}
+
+input:focus { outline: none; }
+
+input[type=text]
+{
+	box-shadow: #808080 0px 0px 4px inset;
+}
+
+input[type=text]:focus
+{
+	box-shadow: #808080 0px 0px 4px inset, #C0C0FF 0px 0px 8px;
+}
+
 button,
 input[type=button],
-input[type=submit]
+input[type=submit],
+select
 {
 	background: linear-gradient(to bottom, #636668 0%, #464646 50.52%, #343434 53.12%, #000000 100%);
 	color: white;
-	border-radius: 5px;
-	border: 0px solid transparent;
-	padding: 5px;
 }
 
 button:active,
 input[type=button]:active,
-input[type=submit]:active
+input[type=submit]:active,
+select:active
 {
 	background: linear-gradient(to top, #636668 0%, #464646 50.52%, #343434 53.12%, #000000 100%);
 }
 
 button:hover,
 input[type=button]:hover,
-input[type=submit]:hover
+input[type=submit]:hover,
+select:hover
 {
 	box-shadow: #C0C0FF 0px 0px 8px;
 }

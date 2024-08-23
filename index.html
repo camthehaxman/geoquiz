@@ -27,11 +27,18 @@ h3 {
 	margin: 8px;
 }
 
-#e_toolbar {
+#e_mapcontainer {
+	position: relative;
+}
+
+#e_toolbar, #e_timer, #answer {
 	position: absolute;
 	padding: 4px;
-	background-color:rgba(0,0,0,0.5);
-	border-radius: 0px 0px 4px 0px;
+	background-color: rgba(0,0,0,0.5);
+}
+
+#e_toolbar {
+	border-bottom-right-radius: 4px;
 }
 
 #e_toolbar > * {
@@ -43,12 +50,25 @@ h3 {
 	vertical-align: middle;
 }
 
+#e_timer {
+	right: 30px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+#answer {
+	bottom: 30px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	background-color: transparent;
+}
+
 #e_mapscroll {
 	height: 500px;  /* TODO: find some good way to fit this */
 	overflow: scroll;
 	user-select: none;
 	cursor: grab;
-	background-color: #E0E0E0;
+	background-color: #8080C0;
 }
 
 #e_worldmap {
@@ -59,7 +79,7 @@ h3 {
 #e_answers {
 	list-style-type: none;
 	max-height: 300px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 #e_answers li:before {  /* incorrect */
@@ -80,14 +100,17 @@ h3 {
 		<h1>World Countries Quiz</h1>
 		<div id="e_mapcontainer" class="panel-box">
 			<div id="e_toolbar">
-				<span id="e_timer" style="width:100px"></span><span id="e_progress"></span>
+				<span id="e_progress"></span>
 				<img id="e_promptflag" src="//:0" alt="flag">
 				<form id="e_countryform" name="country" action="javascript:onSubmit()" autocomplete="off">
 					<input id="e_countrytext" type="text" name="name">
 					<select id="e_countrylist"></select>
 					<input type="submit" value="Submit">
 				</form>
+				<button onclick="focusCountry()">Where?</button>
 			</div>
+			<div id="e_timer"></div>
+			<div id="answer"></div>
 			<div id="e_maptips" class="popup panel-box">
 				<b>Instructions:</b>
 				<br>
@@ -102,9 +125,7 @@ h3 {
 			<div id="e_mapscroll">
 				<object id="e_worldmap" data="world.svg"></object>
 			</div>
-			<button onclick="focusCountry()">Where?</button>
 		</div>
-		<p id="answer"></p>
 		<p id="e_results"></p>
 		<button onclick="startGame()">Restart Game</button>
 		<div class="panel-box">

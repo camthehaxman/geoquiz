@@ -76,7 +76,7 @@ function nextCountry()
 
 	countryIndex++;
 	if (countryIndex < countries.length) {
-		styleSheet.rules[countryIndex].style.fill = "#A0A0FF";
+		styleSheet.rules[countryIndex].style.fill = "yellow";
 		styleSheet.rules[countryIndex].style.opacity = "1";
 		focusCountry();
 		e_progress.innerText = (countryIndex + 1) + " of " + countries.length + ":";
@@ -115,6 +115,7 @@ function onSubmit()
 	e_answers.appendChild(li);
 
 	answer.innerText = (correct ? "✔️ " : "❌ ") + countries[countryIndex].names[0];
+	answer.style.backgroundColor = correct ? "rgba(0,128,0,0.66)" : "rgba(128,0,0,0.66)";
 	styleSheet.rules[countryIndex].style.fill = correct ? "green" : "red";
 	nextCountry();
 }
@@ -145,6 +146,7 @@ function startGame()
 		styleSheet.insertRule(countries[i].selector + "{}", i);
 
 	answer.innerText = "";
+	answer.style.backgroundColor = "transparent";
 	e_results.innerText = "";
 
 	numCorrect = 0;
@@ -185,7 +187,7 @@ window.onload = function()
 
 	// CSS for blinking element
 	var style = svgDoc.createElementNS("http://www.w3.org/2000/svg", "style");
-	style.textContent = "@keyframes blink { 50% { fill: yellow; } }"
+	style.textContent = "@keyframes blink { 50% { fill: orange; } }"
 					  + ".circlexx { fill: none; }";
 	svgDoc.documentElement.appendChild(style);
 
@@ -213,7 +215,7 @@ function startTimer()
 {
 	startTime = Date.now();
 	timer(startTime);
-	timerId = setInterval(timer, 10, startTime);
+	timerId = setInterval(timer, 1000, startTime);
 }
 
 function stopTimer()
