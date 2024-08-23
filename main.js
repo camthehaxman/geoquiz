@@ -22,30 +22,38 @@ function flagURL(id)
 	return "https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/" + id + ".svg";
 }
 
+// centers map on the specified point
+function centerMap(x, y)
+{
+	// transform point into screen coordinates based on the current zoom level
+	var scale = e_mapscroll.clientWidth /* width at 100% zoom */ * mapZoom / 100 / 2000;
+	e_mapscroll.scrollLeft = x * scale - e_mapscroll.clientWidth / 2;
+	e_mapscroll.scrollTop = y * scale - e_mapscroll.clientHeight / 2;
+}
+
+// 1051, 234
+
 function focusCountry()
 {
-	var zoom = countries[countryIndex].zoom || 200;
+	// Get bounding box of entire country
+	var elems = svgDoc.querySelectorAll(countries[countryIndex].selector);
+	var rect = { left: Infinity, right: 0, top: Infinity, bottom: 0 };
+	for (var i = 0; i < elems.length; i++) {
+		var box = elems[i].getBBox();
+		rect.left   = Math.min(rect.left, box.x);
+		rect.right  = Math.max(rect.right, box.x + box.width);
+		rect.top    = Math.min(rect.top, box.y);
+		rect.bottom = Math.max(rect.bottom, box.y + box.height);
+	}
 
-	// get coordinates
-	// TODO: check kiribati, france, russia, netherlands
-	var elem = svgDoc.getElementById(countries[countryIndex].id);
-	var rect = elem.getBBox();
-	var x = rect.x + rect.width / 2;
-	var y = rect.y + rect.height / 2;
-
-	// normalize to fraction of map
-	x /= 2754;
-	y /= 1398;
-
-	// zoom
-	mapZoom = zoom;
+	// choose an appropriate zoom level (make it so the country takes up 1/25th of the width)
+	var size = (rect.right - rect.left) / 2000;
+	mapZoom = 100 * (1 / size) / 25;
+	mapZoom = Math.max(100, Math.min(600, mapZoom));
 	e_worldmap.style.width = mapZoom + "%";
 
-	console.log("at " + x + "," + y);
-
-	// center viewport on position
-	e_mapscroll.scrollLeft = e_worldmap.offsetWidth * x - e_mapscroll.offsetWidth / 2;
-	e_mapscroll.scrollTop = e_worldmap.offsetHeight * y - e_mapscroll.offsetHeight / 2;
+	// center view on country
+	centerMap((rect.left + rect.right) / 2, (rect.top + rect.bottom) / 2);
 
 	// (re)start blink animation
 	styleSheet.rules[countryIndex].style.animation = "none";
@@ -85,7 +93,6 @@ function checkName(name, list)
 {
 	for (var i in list) {
 		if (name.toLowerCase() == list[i].toLowerCase()) {
-			console.log(name.toLowerCase() + " - " + list[i].toLowerCase);
 			return true;
 		}
 	}
@@ -126,7 +133,6 @@ function startGame()
 		var option = document.createElement("option");
 		option.value = option.innerText = names[i];
 		e_countrylist.appendChild(option);
-		console.log(names[i]);
 	}
 
 	// shuffle countries
@@ -135,9 +141,8 @@ function startGame()
 	// CSS rules for each country
 	while (styleSheet.rules.length > 0)
 		styleSheet.deleteRule(0);
-	for (var i in countries) {
-		styleSheet.insertRule("." + countries[i].id + " { }", i);
-	}
+	for (var i in countries)
+		styleSheet.insertRule(countries[i].selector + "{}", i);
 
 	answer.innerText = "";
 	e_results.innerText = "";
@@ -162,18 +167,16 @@ e_hintlist.onchange = function()
 
 window.onload = function()
 {
+	// CSS selectors for each country (may be an id or class)
+	for (var i in countries)
+		countries[i].selector = "." + countries[i].id.toUpperCase() + ",#" + countries[i].id.toUpperCase();
+
 	// init from checkbox state
 	e_hintflags.onchange();
 	e_hintlist.onchange();
 
 	// Get SVG document
 	svgDoc = e_worldmap.contentDocument;
-
-	// Remove all title elements
-	var titles = svgDoc.getElementsByTagName("title");
-	while (titles[0]) {
-		titles[0].remove();
-	}
 
 	// Create empty stylesheet
 	var style = svgDoc.createElementNS("http://www.w3.org/2000/svg", "style");
@@ -224,8 +227,6 @@ e_mapscroll.onwheel = function(event)
 {
 	event.preventDefault();
 
-	console.log("scroll");
-
 	var startX = event.offsetX;
 	var startY = event.offsetY;
 	var scrollX = e_mapscroll.scrollLeft;
@@ -238,13 +239,15 @@ e_mapscroll.onwheel = function(event)
 	y /= mapZoom;
 
 	if (event.deltaY > 0) {
-		mapZoom -= 20;
+		//mapZoom -= 50;
+		mapZoom /= 1.1;
 		if (mapZoom < 100)
 			mapZoom = 100;
 	} else if (event.deltaY < 0) {
-		mapZoom += 20;
-		if (mapZoom > 1600)
-			mapZoom = 1600;
+		//mapZoom += 50;
+		mapZoom *= 1.1;
+		if (mapZoom > 20000)
+			mapZoom = 20000;
 	}
 	e_worldmap.style.width = mapZoom + "%";
 
@@ -258,6 +261,9 @@ e_mapscroll.onwheel = function(event)
 
 e_mapscroll.onmousedown = function(event)
 {
+	if (event.button != 0)
+		return;
+
 	var startX = event.pageX;
 	var startY = event.pageY;
 	var scrollX = e_mapscroll.scrollLeft;
